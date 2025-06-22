@@ -1,6 +1,6 @@
 function getNthPrime(n) {
 
-    function soe(m) {
+    function primes_filter(m) {
         let primes = Array(m+1).fill(true);
         primes[0] = primes[1] = false;
         for (let i = 2; i <= Math.sqrt(m); i++)
@@ -11,7 +11,7 @@ function getNthPrime(n) {
     }
 
     x = 1;
-    while (soe(x) < n) {
+    while (primes_filter(x) < n) {
         x++;
     }
 
