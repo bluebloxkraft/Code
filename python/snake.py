@@ -28,7 +28,7 @@ clock = pg.time.Clock()
 running = True
 
 snake_body = [snake_spawn]
-apple = 0
+apple = None
 current_direction = default_mvdir
 queue_direction = default_mvdir
 
@@ -40,7 +40,7 @@ def draw():
 
     pg.draw.rect(screen, (40, 100, 40), (snake_body[0][0] * block_size, snake_body[0][1] * block_size, block_size, block_size))
 
-    if apple != 0:
+    if apple != None:
         pg.draw.rect(screen, (255, 0, 0), (apple[0] * block_size, apple[1] * block_size, block_size, block_size))
 
 def gameover():
@@ -54,7 +54,7 @@ def game_tick():
     global current_direction
     global apple
     
-    if apple == 0:
+    if apple == None:
         new_apple = (random.randint(0, world_size[0] - 1), random.randint(0, world_size[1] - 1))
         while new_apple in snake_body:
             new_apple = (random.randint(0, world_size[0] - 1), random.randint(0, world_size[1] - 1))
@@ -76,7 +76,7 @@ def game_tick():
         print("YOU FINISHED THE GAME!!!!\n(if i got the condition right lol)")
     
     if apple == snake_body[0]:
-        apple = 0
+        apple = None
     else:
         snake_body.pop()
 

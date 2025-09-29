@@ -10,10 +10,12 @@ function getNthPrime(n) {
         return primes.reduce((a, b) => a + b, 0);
     }
 
-    x = 1;
+    let x = 1;
     while (primes_filter(x) < n) {
         x++;
     }
 
     return x;
 }
+
+console.log(getNthPrime(10))
