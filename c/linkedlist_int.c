@@ -11,6 +11,7 @@
  * TODO:
  * - more safety and checks
  * - get better at doing this
+ * - fix the functions that dont work right now
  */
 
 #include <stdio.h>
