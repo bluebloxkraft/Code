@@ -1,3 +1,4 @@
 *.o
 *.class
 *.hi
+python/__pycache__
