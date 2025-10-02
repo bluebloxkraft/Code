@@ -5,12 +5,12 @@ def von_neumann(n: int):
     if n in known:
         return known[n]
     else:
-        str = "{" + von_neumann(0)
+        str = von_neumann(0)
         for i in range(1, n):
             str += f", {von_neumann(i)}"
-        str += "}"
+        str = "{" + str + "}"
         known[n] = str
         return str;
 
 # test (omg it grows so fast, damn)
-print(von_neumann(15))
+print(von_neumann(10))
