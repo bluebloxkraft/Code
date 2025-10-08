@@ -28,12 +28,11 @@ def get_term_formatted(c: int, a: int, b: int) -> str:
     if c != 1:
         res = str(c)
     if a != 0:
-        res += f" x{superscript_num(a)}"
+        res += f"x{superscript_num(a)}"
     if b != 0: 
-        res += f" y{superscript_num(b)}"
+        res += f"y{superscript_num(b)}"
     
-    return res
-    
+    return res    
 
 # MAIN RUNNING CODE (below)
 
