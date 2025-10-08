@@ -20,7 +20,7 @@ def C(n: int, k: int) -> int:
 def superscript_num(n: int) -> str:
         if n == 1:
             return ""
-        return str(n).replace("0", "⁰").replace("1", "").replace("2", "²").replace("3", "³").replace("4", "⁴").replace("5", "⁵").replace("6", "⁶").replace("7", "⁷").replace("8", "⁸").replace("9", "⁹")
+        return str(n).replace("0", "⁰").replace("1", "¹").replace("2", "²").replace("3", "³").replace("4", "⁴").replace("5", "⁵").replace("6", "⁶").replace("7", "⁷").replace("8", "⁸").replace("9", "⁹")
 
 def get_term_formatted(c: int, a: int, b: int) -> str:
     res = ""
