@@ -8,7 +8,7 @@ def von_neumann(n: int):
         str = von_neumann(0)
         for i in range(1, n):
             str += f", {von_neumann(i)}"
-        str = "{" + str + "}"
+        str = f"{{{str}}}"
         known[n] = str
         return str;
 
