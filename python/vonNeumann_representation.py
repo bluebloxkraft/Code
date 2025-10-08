@@ -1,16 +1,16 @@
-known = {0: "∅"}
+known: {int: str} = {0: "∅"}
 
-def von_neumann(n: int):
+def von_neumann(n: int) -> str:
     global known
     if n in known:
         return known[n]
     else:
-        str = von_neumann(0)
+        res = von_neumann(0)
         for i in range(1, n):
-            str += f", {von_neumann(i)}"
-        str = f"{{{str}}}"
-        known[n] = str
-        return str;
+            res += f", {von_neumann(i)}"
+        res = f"{{{res}}}"
+        known[n] = res
+        return res;
 
 # test (omg it grows so fast, damn)
 print(von_neumann(10))
