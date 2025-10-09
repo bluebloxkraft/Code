@@ -12,6 +12,8 @@ def fac(x: int) -> int:
 C_known: {(int, int): int} = {}
 
 def C(n: int, k: int) -> int:
+    if k > n/2:
+        return C(n, n - k)
     if (n, k) not in C_known:
         C_known[(n, k)] = int(fac(n) / fac(n - k) / fac(k))
     
@@ -34,6 +36,12 @@ def get_term_formatted(c: int, a: int, b: int) -> str:
     
     return res    
 
+def gen_latex_markup() -> str:
+    terms: [str] = []
+    for i in range(n + 1):
+        terms.append(f"{C(n, i)} x^{{{n-i}}} y^{{{i}}}")
+    return " + ".join(terms)
+
 # MAIN RUNNING CODE (below)
 
 terms: [str] = []
@@ -43,3 +51,4 @@ for i in range(n + 1):
     terms.append(get_term_formatted(C(n, i), n - i, i))
 
 print("The expansion is:", " + ".join(terms))
+# print("The LaTeX format is: ", gen_latex_markup())
