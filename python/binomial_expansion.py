@@ -41,8 +41,9 @@ def get_term_formatted(c: int, a: int, b: int) -> str:
 # only called in the commented print in the last line. so you can uncomment that line to get this thing's output too
 def gen_latex_markup() -> str:
     terms: [str] = []
+
     for i in range(n + 1):
-        terms.append(f"{C(n, i)} x^{{{n-i}}} y^{{{i}}}")
+        terms.append(f"{C(n, n - i)} x^{{{n - i}}} y^{{{i}}}")
     return " + ".join(terms)
 
 # MAIN RUNNING CODE (below)
