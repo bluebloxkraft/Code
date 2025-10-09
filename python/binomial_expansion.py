@@ -36,6 +36,9 @@ def get_term_formatted(c: int, a: int, b: int) -> str:
     
     return res    
 
+
+# this prints the LaTeX code/markup/whatever you wanna call it for the expansion
+# only called in the commented print in the last line. so you can uncomment that line to get this thing's output too
 def gen_latex_markup() -> str:
     terms: [str] = []
     for i in range(n + 1):
