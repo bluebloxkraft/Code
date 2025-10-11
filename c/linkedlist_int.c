@@ -17,14 +17,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct _llist_int{
+struct _llist_int {
    int head;
    struct _llist_int* tail;
-} LLI; //LLI is short for linked list integer
+}; //LLI is short for linked list integer
+
+typedef struct _llist_int* LLI;
 
 // pointer to a new integer linked list instance
-LLI* pNewLLI(int head, LLI* tail) {
-   LLI* ptr = (LLI*) malloc(sizeof(LLI));   
+LLI newLLI(int head, LLI tail) {
+   LLI ptr = (LLI) malloc(sizeof(struct _llist_int));   
    if(ptr != NULL)
    {
       ptr->head = head;
@@ -37,13 +39,13 @@ LLI* pNewLLI(int head, LLI* tail) {
 // linked list creation functions
 
 LLI arrToLl(int* arr, int length) {
-   LLI res = {arr[0], NULL};
-   LLI* current = &res;
+   LLI res = newLLI(arr[0], NULL);
+   LLI current = res;
 
-   for(int i = 1; i < length; i++){
-      LLI* ptr = pNewLLI(arr[i], NULL);
-
-      current->tail = ptr;
+   for(int i = 0; i < length; i++)
+   {
+      LLI next = newLLI(arr[i], NULL);
+      current->tail = next;
       current = current->tail;
    }
 
@@ -52,18 +54,18 @@ LLI arrToLl(int* arr, int length) {
 
 // linked list modification functions
 
-void ll_append(LLI* targetList, int elem) {
-   LLI* current = targetList;
+void ll_append(LLI targetList, int elem) {
+   LLI current = targetList;
 
    while(current->tail != NULL)
       current = current->tail;
    
-   current->tail = pNewLLI(elem, NULL);
+   current->tail = newLLI(elem, NULL);
 }
 
-void ll_insert(LLI* targetList, int index, int elem) {
+void ll_insert(LLI targetList, int index, int elem) {
    // this aint gonna work for index 0... yikes
-   LLI* current = targetList;
+   LLI current = targetList;
    
    for(int i = 0; i < index - 1; i++)
    {
@@ -72,13 +74,13 @@ void ll_insert(LLI* targetList, int index, int elem) {
          break;
    }
    
-   current->tail = pNewLLI(elem, current->tail);
+   current->tail = newLLI(elem, current->tail);
 }
-
+/*
 // doesnt work as i intended for now
-LLI* ll_pop(LLI* targetList, int index) {
-   LLI* current = targetList;
-   LLI* res;
+LLI ll_pop(LLI targetList, int index) {
+   LLI current = targetList;
+   LLI res;
 
    for(int i = 0; i < index - 1; i++)
    {
@@ -94,20 +96,21 @@ LLI* ll_pop(LLI* targetList, int index) {
    }
 
    return res;
-}
-
-void ll_delete(LLI* targetList, int index) {
+}*/
+/*
+void ll_delete(LLI targetList, int index) {
    free(ll_pop(targetList, index));
 }
-
-void ll_remove(LLI* targetList, int elem) {
-   LLI** current = &targetList;
+*/
+/*
+void ll_remove(LLI targetList, int elem) {
+   LLI* current = &targetList;
    
-}
+}*/
 
 // misc.
 void ll_print(LLI ll){
-   LLI* curr = &ll;
+   LLI curr = ll;
    
    while(curr != NULL)
    {
@@ -119,9 +122,9 @@ void ll_print(LLI ll){
 // test
 int main(){
    printf("print test");
-   LLI l1 = {1, NULL};
-   LLI l2 = {2, &l1};
-   LLI l3 = {3, &l2};
+   struct _llist_int l1 = {1, NULL};
+   struct _llist_int l2 = {2, l1};
+   struct _llist_int l3 = {3, l2};
    ll_print(l3);
    
    printf("\narray to linked list test\n");
@@ -136,8 +139,8 @@ int main(){
    printf("\ninsert\n");
    ll_insert(&theList, 2, 600);
    ll_print(theList);
-
+/*
    printf("\ndel test\n");
    ll_delete(&theList, 3);
-   ll_print(theList);
+   ll_print(theList); */
 }
