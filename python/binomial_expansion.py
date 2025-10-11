@@ -48,11 +48,14 @@ def gen_latex_markup() -> str:
 
 # MAIN RUNNING CODE (below)
 
-terms: [str] = []
+def main():
+   terms: [str] = []
+   
+   for i in range(n + 1):
+      # terms.append(f"{C(n, i)} x^{n - i} y^{i}")
+      terms.append(get_term_formatted(C(n, i), n - i, i))
+   
+   print("The expansion is:", " + ".join(terms))
+ # print("The LaTeX format is: ", gen_latex_markup())
 
-for i in range(n + 1):
-    # terms.append(f"{C(n, i)} x^{n - i} y^{i}")
-    terms.append(get_term_formatted(C(n, i), n - i, i))
-
-print("The expansion is:", " + ".join(terms))
-# print("The LaTeX format is: ", gen_latex_markup())
+main()
