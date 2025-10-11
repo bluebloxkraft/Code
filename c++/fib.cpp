@@ -2,7 +2,7 @@
 
 int fib(int n){
    if(n == 0)
-      return 0;
+      return 1;
 
    int F1 = 0;
    int F2 = 1;
