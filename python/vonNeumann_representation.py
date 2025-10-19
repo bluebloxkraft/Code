@@ -1,5 +1,3 @@
-x = int(input("Enter a number: "))
-
 known: {int: str} = {0: "∅"}
 
 def von_neumann(n: int) -> str:
@@ -11,4 +9,6 @@ def von_neumann(n: int) -> str:
     return known[n]
 
 # test (omg it grows so fast, damn)
+x = int(input("Enter a number: "))
+
 print(von_neumann(x))
