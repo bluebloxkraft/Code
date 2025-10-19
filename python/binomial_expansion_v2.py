@@ -32,7 +32,7 @@ def get_term_formatted(c: int, a: int, b: int) -> str:
     
     return res    
 
-def main():
+def main() -> None:
    terms: [str] = []
    
    for i in range(x + 1):
