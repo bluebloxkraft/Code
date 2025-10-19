@@ -3,16 +3,12 @@ x = int(input("Enter a number: "))
 known: {int: str} = {0: "∅"}
 
 def von_neumann(n: int) -> str:
-    global known
-    if n in known:
-        return known[n]
-    else:
-        res = von_neumann(0)
-        for i in range(1, n):
-            res += f", {von_neumann(i)}"
-        res = f"{{{res}}}"
-        known[n] = res
-        return res;
+    if n not in known:
+        elems: [str] = []
+        for i in range(n):
+            elems.append(von_neumann(i))
+        known[n] = "{" + ", ".join(elems) + "}" # i think, in this case, simply concatenating the curly brackets is more readable than f-strings
+    return known[n]
 
 # test (omg it grows so fast, damn)
 print(von_neumann(x))
