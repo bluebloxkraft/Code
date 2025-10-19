@@ -4,12 +4,15 @@ x = int(input("Enter a number: "))
 C_known: {(int, int): int} = {0: 0}
 
 def C(n: int, k: int) -> int:
-    if k == 0 or n == k:
+    if k == 0:
         return 1
-    if k == 1:
-        return n
+    if k > n/2:
+        return C(n, n-k)
     if (n, k) not in C_known:
-        C_known[(n, k)] = C(n - 1, k - 1) + C(n - 1, k)
+        res = 1
+        for i in range(k+1):
+            res *= (n - i)/(i + 1)
+        C_known[(n, k)] = int(res)
     return C_known[(n, k)]
 
 def superscript_num(n: int) -> str:
@@ -35,6 +38,6 @@ def main():
    for i in range(x + 1):
       terms.append(get_term_formatted(C(x, i), x - i, i))
    
-   print("The expansion is:", " + ".join(terms))
+   print(f"The expansion of {x} is:", " + ".join(terms))
 
 main()
