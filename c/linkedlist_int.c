@@ -9,7 +9,7 @@ struct node {
 typedef struct node* LinkedListInt;
 
 void print(LinkedListInt list){
-   LinkedListInt* current = &list;
+   struct node** current = &list;
 
    while(*current != NULL)
    {
@@ -32,11 +32,28 @@ void from_array(LinkedListInt* listPtr, int* arr, int arr_size){
    }
 }
 
+void rem(LinkedListInt* listPtr, int elem){
+   struct node** current = listPtr;
+
+   while((*current)->head != elem)
+      current = &(*current)->tail;
+   
+   struct node* temp = *current;
+   *current = (*current)->tail;
+   free(temp);
+}
+
 int main(){
-   int arr[] = {1, 2, 33, 444, 5555};
+   int arr[] = {1, 100, 102, 38484, 3777};
    LinkedListInt list = NULL;
-
+   
+   printf("array to linkedlist test\n");
    from_array(&list, arr, 5);
-
    print(list);
+
+   printf("\nremove element test\n");
+   rem(&list, 100);
+   print(list);
+
+
 }
