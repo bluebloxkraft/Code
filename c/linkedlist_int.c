@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// TODO: pop, insert, reverse, sort, index, clear, copy
+
 struct node {
    int head;
    struct node* tail;
@@ -18,42 +20,68 @@ void print(LinkedListInt list){
    }
 }
 
-void from_array(LinkedListInt* listPtr, int* arr, int arr_size){
-   struct node** current = listPtr;
+void append(LinkedListInt* pList, int elem){
+   struct node** current = pList;
+
+   while(*current != NULL)
+      current = &(*current)->tail;
+
+   struct node* pNewNode = (struct node*) malloc(sizeof(struct node));
+      pNewNode->head = elem;
+      pNewNode->tail = NULL;
+
+      *current = pNewNode;
+}
+
+void from_array(LinkedListInt* pList, int* arr, int arr_size){
+   struct node** current = pList;
 
    for(int i = 0; i < arr_size; i++)
    {
-      struct node* pnew_node = (struct node*) malloc(sizeof(struct node));
-      pnew_node->head = arr[i];
-      pnew_node->tail = NULL;
-      
-      *current = pnew_node;
-      current = &pnew_node->tail;
+      append(current, arr[i]);
+      current = &(*current)->tail;
    }
 }
 
-void rem(LinkedListInt* listPtr, int elem){
-   struct node** current = listPtr;
+void rem(LinkedListInt* pList, int elem){
+   struct node** current = pList;
 
    while((*current)->head != elem)
       current = &(*current)->tail;
    
    struct node* temp = *current;
-   *current = (*current)->tail;
+   *current = temp->tail;
    free(temp);
+}
+
+void extend(LinkedListInt* pTargetList, LinkedListInt extension){
+   struct node** current = pTargetList;
+
+   while(*current != NULL)
+      current = &(*current)->tail;
+
+   *current = extension;
 }
 
 int main(){
    int arr[] = {1, 100, 102, 38484, 3777};
    LinkedListInt list = NULL;
-   
    printf("array to linkedlist test\n");
-   from_array(&list, arr, 5);
+   from_array(&list, arr, sizeof(arr) / sizeof(int));
    print(list);
 
    printf("\nremove element test\n");
    rem(&list, 100);
    print(list);
 
+   printf("\nappend element test\n");
+   append(&list, 78);
+   print(list);
 
+   printf("\nextend list test\n");
+   LinkedListInt list2 = NULL;
+   int arr2[] = {1, 2, 303};
+   from_array(&list2, arr2, sizeof(arr2) / sizeof(int));
+   extend(&list, list2);
+   print(list);
 }
