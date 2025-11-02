@@ -56,10 +56,21 @@ void from_array(LinkedListInt* pList, int* arr, int arr_size){
    }
 }
 
-void rem(LinkedListInt* pList, int elem){
+void remove_elem(LinkedListInt* pList, int elem){
    struct node** current = pList;
 
    while((*current)->head != elem)
+      current = &(*current)->tail;
+   
+   struct node* temp = *current;
+   *current = temp->tail;
+   free(temp);
+}
+
+void remove_index(LinkedListInt* pList, uint16_t index){
+   struct node** current = pList;
+
+   for(int i = 0; i < index; i++)
       current = &(*current)->tail;
    
    struct node* temp = *current;
@@ -83,8 +94,8 @@ int main(){
    from_array(&list, arr, sizeof(arr) / sizeof(int));
    print(list);
 
-   printf("\n\nremove element test\n");
-   rem(&list, 100);
+   printf("\n\nremove element by value test\n");
+   remove_elem(&list, 100);
    print(list);
 
    printf("\n\nappend element test\n");
@@ -100,5 +111,9 @@ int main(){
 
    printf("\n\ninsert element test\n");
    insert(&list, 5, 1000);
+   print(list);
+   
+   printf("\n\nremove element by index test\n");
+   remove_index(&list, 4);
    print(list);
 }
