@@ -20,6 +20,19 @@ void print(LinkedListInt list){
    }
 }
 
+void insert(LinkedListInt* pList, uint16_t index, int elem){
+   struct node** current = pList;
+
+   for(int i = 0; i < index; i++)
+      current = &(*current)->tail;
+
+   struct node* pNewNode = (struct node*) malloc(sizeof(struct node));
+   pNewNode->head = elem;
+   pNewNode->tail = *current;
+
+   *current = pNewNode;
+}
+
 void append(LinkedListInt* pList, int elem){
    struct node** current = pList;
 
@@ -70,18 +83,22 @@ int main(){
    from_array(&list, arr, sizeof(arr) / sizeof(int));
    print(list);
 
-   printf("\nremove element test\n");
+   printf("\n\nremove element test\n");
    rem(&list, 100);
    print(list);
 
-   printf("\nappend element test\n");
+   printf("\n\nappend element test\n");
    append(&list, 78);
    print(list);
 
-   printf("\nextend list test\n");
+   printf("\n\nextend list test\n");
    LinkedListInt list2 = NULL;
    int arr2[] = {1, 2, 303};
    from_array(&list2, arr2, sizeof(arr2) / sizeof(int));
    extend(&list, list2);
+   print(list);
+
+   printf("\n\ninsert element test\n");
+   insert(&list, 5, 1000);
    print(list);
 }
