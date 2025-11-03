@@ -102,8 +102,8 @@ uint16_t index_elem(LinkedListInt list, int elem){
 
    while((*current)->head != elem)
    {
-      current = &(*current)->tail;
       i++;
+      current = &(*current)->tail;
    }
 
    return i;
@@ -113,7 +113,12 @@ void copy(LinkedListInt* pWriteList, LinkedListInt readList){
    struct node** r_current = &readList;
    struct node** w_current = pWriteList;
 
-
+   while(*r_current != NULL)
+   {
+      *w_current = make_node((*r_current)->head, NULL);
+      r_current = &(*r_current)->tail;
+      w_current = &(*w_current)->tail;
+   }
 }
 
 int main(){
@@ -150,5 +155,16 @@ int main(){
 
    printf("\n\nget index by element test\nindex of 2: %i", index_elem(list, 2));
 
-   
+   printf("\n\nshallow copy list test\n");
+   LinkedListInt list3 = list;
+   LinkedListInt list4 = NULL;
+   copy(&list4, list);
+   insert(&list3, 3, 4900);
+   insert(&list4, 5, 8192);
+   printf("original (no changes made by code): ");
+   print(list);
+   printf("\nimproper copy (insert 4900 at 3): ");
+   print(list3);
+   printf("\nshallow copy (insert 8192 at 5): ");
+   print(list4);
 }
