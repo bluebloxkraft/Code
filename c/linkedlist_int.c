@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// TODO: pop, insert, reverse, sort, index, clear, copy
+// TODO: pop, reverse, sort, clear, copy
 
 struct node {
    int head;
@@ -20,17 +20,21 @@ void print(LinkedListInt list){
    }
 }
 
+struct node* make_node(int head, struct node* tail){
+   struct node* pNewNode = (struct node*) malloc(sizeof(struct node));
+   pNewNode->head = head;
+   pNewNode->tail = tail;
+
+   return pNewNode;
+}
+
 void insert(LinkedListInt* pList, uint16_t index, int elem){
    struct node** current = pList;
 
    for(int i = 0; i < index; i++)
       current = &(*current)->tail;
 
-   struct node* pNewNode = (struct node*) malloc(sizeof(struct node));
-   pNewNode->head = elem;
-   pNewNode->tail = *current;
-
-   *current = pNewNode;
+   *current = make_node(elem, *current);
 }
 
 void append(LinkedListInt* pList, int elem){
@@ -39,11 +43,7 @@ void append(LinkedListInt* pList, int elem){
    while(*current != NULL)
       current = &(*current)->tail;
 
-   struct node* pNewNode = (struct node*) malloc(sizeof(struct node));
-      pNewNode->head = elem;
-      pNewNode->tail = NULL;
-
-      *current = pNewNode;
+   *current = make_node(elem, NULL);
 }
 
 void from_array(LinkedListInt* pList, int* arr, int arr_size){
@@ -87,6 +87,35 @@ void extend(LinkedListInt* pTargetList, LinkedListInt extension){
    *current = extension;
 }
 
+int get_index(LinkedListInt list, uint16_t index){
+   struct node** current = &list;
+
+   for(int i = 0; i < index; i++)
+      current = &(*current)->tail;
+
+   return (*current)->head;
+}
+
+uint16_t elem_index(LinkedListInt list, int elem){
+   struct node** current = &list;
+   uint16_t i = 0;
+
+   while((*current)->head != elem)
+   {
+      current = &(*current)->tail;
+      i++;
+   }
+
+   return i;
+}
+
+void copy(LinkedListInt* pWriteList, LinkedListInt readList){
+   struct node** r_current = &readList;
+   struct node** w_current = pWriteList;
+
+
+}
+
 int main(){
    int arr[] = {1, 100, 102, 38484, 3777};
    LinkedListInt list = NULL;
@@ -116,4 +145,10 @@ int main(){
    printf("\n\nremove element by index test\n");
    remove_index(&list, 4);
    print(list);
+
+   printf("\n\nget element by index test\n2-nd elem: %i", get_index(list, 2));
+
+   printf("\n\nget index by element test\nindex of 2: %i", elem_index(list, 2));
+
+   
 }
