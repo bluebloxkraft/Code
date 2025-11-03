@@ -96,7 +96,7 @@ int get_index(LinkedListInt list, uint16_t index){
    return (*current)->head;
 }
 
-uint16_t elem_index(LinkedListInt list, int elem){
+uint16_t index_elem(LinkedListInt list, int elem){
    struct node** current = &list;
    uint16_t i = 0;
 
@@ -148,7 +148,7 @@ int main(){
 
    printf("\n\nget element by index test\n2-nd elem: %i", get_index(list, 2));
 
-   printf("\n\nget index by element test\nindex of 2: %i", elem_index(list, 2));
+   printf("\n\nget index by element test\nindex of 2: %i", index_elem(list, 2));
 
    
 }
