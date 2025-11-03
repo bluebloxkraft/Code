@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// TODO: pop, reverse, sort, clear, copy
+// TODO: pop, reverse, sort, clear
 
 struct node {
    int head;
@@ -18,6 +18,8 @@ void print(LinkedListInt list){
       printf("%i ", (*current)->head);
       current = &(*current)->tail;
    }
+
+   current = NULL;
 }
 
 struct node* make_node(int head, struct node* tail){
@@ -35,6 +37,8 @@ void insert(LinkedListInt* pList, uint16_t index, int elem){
       current = &(*current)->tail;
 
    *current = make_node(elem, *current);
+
+   current = NULL;
 }
 
 void append(LinkedListInt* pList, int elem){
@@ -44,6 +48,8 @@ void append(LinkedListInt* pList, int elem){
       current = &(*current)->tail;
 
    *current = make_node(elem, NULL);
+   
+   current = NULL;
 }
 
 void from_array(LinkedListInt* pList, int* arr, int arr_size){
@@ -54,6 +60,8 @@ void from_array(LinkedListInt* pList, int* arr, int arr_size){
       append(current, arr[i]);
       current = &(*current)->tail;
    }
+
+   current = NULL;
 }
 
 void remove_elem(LinkedListInt* pList, int elem){
@@ -65,6 +73,8 @@ void remove_elem(LinkedListInt* pList, int elem){
    struct node* temp = *current;
    *current = temp->tail;
    free(temp);
+   temp = NULL;
+   current = NULL;
 }
 
 void remove_index(LinkedListInt* pList, uint16_t index){
@@ -76,6 +86,7 @@ void remove_index(LinkedListInt* pList, uint16_t index){
    struct node* temp = *current;
    *current = temp->tail;
    free(temp);
+   current = NULL;
 }
 
 void extend(LinkedListInt* pTargetList, LinkedListInt extension){
@@ -85,6 +96,7 @@ void extend(LinkedListInt* pTargetList, LinkedListInt extension){
       current = &(*current)->tail;
 
    *current = extension;
+   current = NULL;
 }
 
 int get_index(LinkedListInt list, uint16_t index){
@@ -92,8 +104,10 @@ int get_index(LinkedListInt list, uint16_t index){
 
    for(int i = 0; i < index; i++)
       current = &(*current)->tail;
-
-   return (*current)->head;
+   
+   int temp = (*current)->head; 
+   current = NULL;
+   return temp;
 }
 
 uint16_t index_elem(LinkedListInt list, int elem){
@@ -106,6 +120,7 @@ uint16_t index_elem(LinkedListInt list, int elem){
       current = &(*current)->tail;
    }
 
+   current = NULL;
    return i;
 }
 
@@ -119,6 +134,9 @@ void copy(LinkedListInt* pWriteList, LinkedListInt readList){
       r_current = &(*r_current)->tail;
       w_current = &(*w_current)->tail;
    }
+
+   r_current = NULL;
+   w_current = NULL;
 }
 
 int main(){
