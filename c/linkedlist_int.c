@@ -99,7 +99,7 @@ void extend(LinkedListInt* pTargetList, LinkedListInt extension){
    current = NULL;
 }
 
-int get_index(LinkedListInt list, uint16_t index){
+int get_elem(LinkedListInt list, uint16_t index){
    struct node** current = &list;
 
    for(int i = 0; i < index; i++)
@@ -110,7 +110,7 @@ int get_index(LinkedListInt list, uint16_t index){
    return temp;
 }
 
-uint16_t index_elem(LinkedListInt list, int elem){
+uint16_t get_index(LinkedListInt list, int elem){
    struct node** current = &list;
    uint16_t i = 0;
 
@@ -169,9 +169,9 @@ int main(){
    remove_index(&list, 4);
    print(list);
 
-   printf("\n\nget element by index test\n2-nd elem: %i", get_index(list, 2));
+   printf("\n\nget element by index test\n2-nd elem: %i", get_elem(list, 2));
 
-   printf("\n\nget index by element test\nindex of 2: %i", index_elem(list, 2));
+   printf("\n\nget index by element test\nindex of 2: %i", get_index(list, 2));
 
    printf("\n\nshallow copy list test\n");
    LinkedListInt list3 = list;
