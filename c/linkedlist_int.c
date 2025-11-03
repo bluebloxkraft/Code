@@ -11,7 +11,7 @@ struct node {
 typedef struct node* LinkedListInt;
 
 void print(LinkedListInt list){
-   struct node** current = &list;
+   struct node** current = &list; // i could've just used LinkedListInt* instead of struct node** but i feel like the latter is more "sensible" if you know what i mean
 
    while(*current != NULL)
    {
@@ -19,7 +19,7 @@ void print(LinkedListInt list){
       current = &(*current)->tail;
    }
 
-   current = NULL;
+   current = NULL; // setting the pointer to null after use
 }
 
 struct node* make_node(int head, struct node* tail){
