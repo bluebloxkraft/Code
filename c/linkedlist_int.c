@@ -89,13 +89,29 @@ void remove_index(LinkedListInt* pList, uint16_t index){
    current = NULL;
 }
 
+void copy(LinkedListInt* pWriteList, LinkedListInt readList){
+   struct node** r_current = &readList;
+   struct node** w_current = pWriteList;
+
+   while(*r_current != NULL)
+   {
+      *w_current = make_node((*r_current)->head, NULL);
+      r_current = &(*r_current)->tail;
+      w_current = &(*w_current)->tail;
+   }
+
+   r_current = NULL;
+   w_current = NULL;
+}
+
 void extend(LinkedListInt* pTargetList, LinkedListInt extension){
    struct node** current = pTargetList;
-
    while(*current != NULL)
       current = &(*current)->tail;
-
-   *current = extension;
+   
+   LinkedListInt ext_copy = NULL;
+   copy(&ext_copy, extension);
+   *current = ext_copy;
    current = NULL;
 }
 
@@ -105,7 +121,7 @@ int get_elem(LinkedListInt list, uint16_t index){
    for(int i = 0; i < index; i++)
       current = &(*current)->tail;
    
-   int temp = (*current)->head; 
+   int temp = (*current)->head;
    current = NULL;
    return temp;
 }
@@ -124,19 +140,18 @@ uint16_t get_index(LinkedListInt list, int elem){
    return i;
 }
 
-void copy(LinkedListInt* pWriteList, LinkedListInt readList){
-   struct node** r_current = &readList;
-   struct node** w_current = pWriteList;
+void delete(LinkedListInt* pList){
+   struct node** current = pList;
 
-   while(*r_current != NULL)
+   while(*current != NULL)
    {
-      *w_current = make_node((*r_current)->head, NULL);
-      r_current = &(*r_current)->tail;
-      w_current = &(*w_current)->tail;
+      struct node** temp = current;
+      current = &(*current)->tail;
+      free(*temp);
+      *temp = NULL;
    }
 
-   r_current = NULL;
-   w_current = NULL;
+   current = NULL;
 }
 
 int main(){
@@ -160,6 +175,7 @@ int main(){
    from_array(&list2, arr2, sizeof(arr2) / sizeof(int));
    extend(&list, list2);
    print(list);
+   delete(&list2);
 
    printf("\n\ninsert element test\n");
    insert(&list, 5, 1000);
@@ -185,4 +201,8 @@ int main(){
    print(list3);
    printf("\nshallow copy (insert 8192 at 5): ");
    print(list4);
+   delete(&list3);
+   delete(&list4);
+
+   delete(&list);
 }
