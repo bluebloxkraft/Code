@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-// i dont think it is good practice to make the char arrays arbitrarily-sized
 void takeMark(char subname[10],  float* pMark)
 {
    printf("Enter the mark for %s", subname);
